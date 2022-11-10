@@ -49,7 +49,7 @@ public class AppUser {
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.creationDate = creationDate;
+        this.creationDate = creationDate.getChronology().dateNow();
     }
 
     public UUID getUuid() { return uuid; }

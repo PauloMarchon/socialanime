@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface AppUserRoleRepository extends JpaRepository<AppUserRole, Integer> {
-
     Optional<AppUserRole> findByName (EAppUserRole name);
 }
