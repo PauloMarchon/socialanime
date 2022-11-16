@@ -22,11 +22,8 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     @Transactional
-    public AppUserDto registerUser(AppUserDto appUserDto) throws EmailAlreadyRegisteredException {
+    public AppUserDto registerUser(AppUserDto appUserDto) {
 
-        if (existsByEmail(appUserDto.getEmail())) {
-            throw new EmailAlreadyRegisteredException();
-        } else {
             AppUser newAppUser = new AppUser();
             newAppUser.setUsername(appUserDto.getUsername());
             newAppUser.setEmail(appUserDto.getEmail());
@@ -40,7 +37,7 @@ public class AppUserServiceImpl implements AppUserService{
 
             return appUserDto;
         }
-    }
+
 
     @Override
     public void changeUsername(UUID userUUID) {
@@ -54,9 +51,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     @Transactional
-    public void deleteUserByUUID(UUID userUUID) {
-        userRepository.deleteById(userUUID);
-    }
+    public void deleteUserByUUID(UUID userUUID) { userRepository.deleteById(userUUID); }
 
     @Override
     public Optional<AppUser> findByUsername(String username) {
@@ -64,9 +59,7 @@ public class AppUserServiceImpl implements AppUserService{
     }
 
     @Override
-    public Optional<AppUser> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+    public Optional<AppUser> findByEmail(String email) { return userRepository.findByEmail(email); }
 
     @Override
     public Boolean existsByUsername(String username) {
@@ -86,6 +79,8 @@ public class AppUserServiceImpl implements AppUserService{
 
         if (userRole.isPresent()){
             roles.add(userRole.get());
+        } else {
+            roles.add(appUserRoleRepository.save(new AppUserRole(EAppUserRole.USER)));
         }
         return roles;
     }

@@ -1,13 +1,17 @@
 package com.socialanime.core.appuser;
 
 import com.socialanime.core.appuser.role.AppUserRole;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.repository.Temporal;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,26 +34,28 @@ public class AppUser {
     @NotBlank(message = "{password.not.blank}")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private Collection<AppUserRole> roles;
+
+    @CreatedDate
     private LocalDate creationDate;
 
     private Boolean activeAccount = false;  //via email validation
 
     public AppUser() {   }
-    public AppUser(String username, String email, String password, LocalDate creationDate) {
+    public AppUser(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.creationDate = creationDate.getChronology().dateNow();
+        this.creationDate = LocalDate.now();
     }
 
-    public AppUser(String username, String email, String password, Set<AppUserRole> roles, LocalDate creationDate) {
+    public AppUser(String username, String email, String password, Set<AppUserRole> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.creationDate = creationDate.getChronology().dateNow();
+        this.creationDate = LocalDate.now();
     }
 
     public UUID getUuid() { return uuid; }

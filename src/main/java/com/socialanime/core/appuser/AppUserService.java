@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AppUserService {
-    AppUserDto registerUser(AppUserDto appUserDto) throws EmailAlreadyRegisteredException;
+    AppUserDto registerUser(AppUserDto appUserDto);
     void changeUsername(UUID userUUID); //Verificar melhor argumento a se receber para realizar o metodo
     void changePassword(UUID userUUID); //Verificar melhor argumento a se receber para realizar o metodo
     void deleteUserByUUID(UUID userUUID);

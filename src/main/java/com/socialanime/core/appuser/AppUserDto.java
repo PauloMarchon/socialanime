@@ -8,9 +8,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,13 +23,7 @@ public class AppUserDto {
     @NotBlank(message = "{password.not.blank}")
     private String password;
 
-    private Collection<AppUserRole> roles;
-
-    public AppUserDto(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
     }
 
 
-}
+
